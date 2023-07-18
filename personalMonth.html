@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta lang="ru">
+    <title>personalMonth</title>
+</head>
+<body>
+    
+    <form class="wrapper">
+
+        <fieldset>
+            <legend>Enter birthday</legend>
+            <input type="text" placeholder="DD.MM.YYYY" id="date" style="background-color: #edbae4">
+        </fieldset>
+                
+        <fieldset>
+            <legend>Enter months and year for calculate</legend>
+            <input type="text" disabled>
+            <input type="text" placeholder="MM.YYYY" id="date1" style="background-color: #edbae4">
+            <input type="text" placeholder="MM.YYYY" id="date2" style="background-color: #edbae4">
+            <input type="text" placeholder="MM.YYYY" id="date3" style="background-color: #edbae4">
+        </fieldset>
+                       
+        <fieldset>
+            <legend>Results</legend>
+            <input type="text" disabled value="Day:" style="background-color: yellow; font-weight: bold;">
+            <input type="text" disabled style="background-color: yellow; font-weight: bold;">
+            <input type="text" disabled style="background-color: yellow; font-weight: bold;">
+            <input type="text" disabled style="background-color: yellow; font-weight: bold;">
+            <input type="text" disabled value="Month:" class="lightgreen">
+            <input type="text" disabled class="lightgreen">
+            <input type="text" disabled class="lightgreen">
+            <input type="text" disabled class="lightgreen">
+            <input type="text" disabled value="Year:" style="background-color: yellow; font-weight: bold;">
+            <input type="text" disabled style="background-color: yellow; font-weight: bold;">
+            <input type="text" disabled style="background-color: yellow; font-weight: bold;">
+            <input type="text" disabled style="background-color: yellow; font-weight: bold;">
+        </fieldset>
+       <br>
+        <input type="button" value="Рассчитать" id="calc">
+        <input type="reset" id="reset">
+    </form>
+    
+    <script>
+        let appData = {
+            date: [],
+            year: 0,
+            date1: [],
+            month1: 0,
+            year1: '0',
+            date2: [],
+            month2: 0,
+            year2: '0',
+            date3: [],
+            month3: 0,
+            year3: '0',
+        }
+
+        let date = document.getElementById('date')
+        let calc = document.getElementById('calc')
+        let reset = document.getElementById('reset')
+        let date1 = document.getElementById('date1')
+        let date2 = document.getElementById('date2')
+        let date3 = document.getElementById('date3')
+        let inp = document.getElementsByTagName('input')
+        
+        calc.addEventListener('click', ()=>{
+
+            appData.date = []
+            appData.year = 0
+            appData.date1 = []
+            appData.month1 = 0
+            appData.year1 = '0'
+            appData.date2 = []
+            appData.month2 = 0
+            appData.year2 = '0'
+            appData.date3 = []
+            appData.month3 = 0
+            appData.year3 = '0'
+
+            appData.date = date.value.split('.')
+            appData.date1 = date1.value.split('.')
+            appData.date2 = date2.value.split('.')
+            appData.date3 = date3.value.split('.')
+            appData.month1 = +appData.date1[0]
+            appData.month2 = +appData.date2[0]
+            appData.month3 = +appData.date3[0]
+            appData.year1 = appData.date1[1]
+            appData.year2 = appData.date2[1]
+            appData.year3 = appData.date3[1]
+
+            if(+appData.date[0]<22){
+                inp[6].value = +appData.date[0]
+                inp[7].value = +appData.date[0]
+                inp[8].value = +appData.date[0]
+            } else{
+                inp[6].value = +appData.date[0]-22
+                inp[7].value = +appData.date[0]-22
+                inp[8].value = +appData.date[0]-22
+            }
+            if((+appData.date[1] + +appData.date1[0])>22){
+                inp[10].value = +appData.date[1] + +appData.date1[0]-22
+            } else inp[10].value = +appData.date[1] + +appData.date1[0]
+            if((+appData.date[1] + +appData.date2[0])>22){
+                inp[11].value = +appData.date[1] + +appData.date2[0]-22
+            } else inp[11].value = +appData.date[1] + +appData.date2[0]
+            if((+appData.date[1] + +appData.date3[0])>22){
+                inp[12].value = +appData.date[1] + +appData.date3[0]-22
+            } else inp[12].value =  +appData.date[1] + +appData.date3[0]
+            let d = 0, e = 0, f = 0 
+            for(let i=0; i<4; i++){
+                if(date1.value.length != 0){d += +appData.year1[i]}
+                if(date2.value.length != 0){e += +appData.year2[i]} 
+                if(date3.value.length != 0){f += +appData.year3[i]} 
+            }
+            while(d>22){d=d-22}
+            inp[14].value = d
+            while(e>22){e=e-22}
+            inp[15].value = e
+            while(f>22){f=f-22}
+            inp[16].value = f
+            
+            let a=0, b=0, c=0
+            for(let i=0; i<appData.date[2].length; i++){
+                let year = appData.date[2]
+                appData.year += +year[i]
+                if(date1.value == ''){
+                    inp[6].value = 'no data'
+                    inp[10].value = 'no data'
+                    inp[14].value = 'no data'
+                } else {a += +appData.year1[i]}
+                if(date2.value == ''){
+                    inp[7].value = 'no data'
+                    inp[11].value = 'no data'
+                    inp[15].value = 'no data'
+                } else{b += +appData.year2[i]}
+                if(date3.value == ''){
+                    inp[8].value = 'no data'
+                    inp[12].value = 'no data'
+                    inp[16].value = 'no data'
+                } else{c += +appData.year3[i]}
+                
+            }
+
+        })
+    </script>
+
+</body>
+
+<style>
+    body{
+        width:350px;
+	    background: #eee;
+    }
+    #date, #reset, #calc {width:85px;}
+    input {width:60px;}
+    legend {
+        background-color: #000;
+        color: #fff;
+        padding: 3px 6px;
+    }
+    .lightgreen{background-color: #b7d792; font-weight: bold;}
+
+</style>
+
+</html>
